@@ -66,10 +66,10 @@ if seccion == "1. Teoría":
     
     # TIP 4
     st.info("""
-    **4. Las 3 fórmulas salvavidas del TEC** Casi todos los problemas se reducen a:
+    **4. Las 3 fórmulas salvavidas** Casi todos los problemas se reducen a:
     * **Paredes / Escaleras:** Teorema de Pitágoras ($z^2 = x^2 + y^2$).
     * **Conos / Sombras:** Semejanza de triángulos (escalar proporciones).
-    * **Esferas / Tanques:** Fórmulas de volumen ($V = \frac{4}{3}\pi r^3$ o $V = \pi r^2 h$).
+    * **Esferas / Tanques:** Fórmulas de volumen.
     """)
 
 # =========================================================================
