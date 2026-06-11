@@ -6,23 +6,23 @@ import numpy as np
 # =========================================================================
 # 1. CONFIGURACIÓN DE LA PÁGINA
 # =========================================================================
-st.set_page_config(page_title="RateMind - Razones de Cambio", layout="wide")
+st.set_page_config(page_title="DeriManía - Razones de Cambio", layout="wide")
 
-st.title("📐 RateMind: Mediador de Razones de Cambio con IA")
-st.write("Desarrollado para el curso MA1102 - Cálculo Diferencial e Integral | TEC")
+st.title("📐 DeriManía: Razones de Cambio")
+st.write("Desarrollado por Anghel Monge -Pedro Barrantes- Irene Gómez | Cálculo Diferencial e Integral | TEC")
 
 # =========================================================================
 # 2. BARRA LATERAL DE NAVEGACIÓN
 # =========================================================================
 seccion = st.sidebar.radio(
     "Menú de Navegación:",
-    ["1. Fundamento Teórico", "2. Tutor con IA", "3. Reto final"]
+    ["1. Teoría", "2. Tutor con IA", "3. Reto final"]
 )
 
 # =========================================================================
-# SECCIÓN 1: FUNDAMENTO TEÓRICO
+# SECCIÓN 1: Teoría 
 # =========================================================================
-if seccion == "1. Fundamento Teórico":
+if seccion == "1. Teoría":
     st.header("1. Concepto de Razón de Cambio Relacionada")
     st.write("""
     En el mundo real, muchas variables están ligadas por relaciones geométricas o físicas. 
@@ -44,23 +44,50 @@ if seccion == "1. Fundamento Teórico":
     4. **Derivar implícitamente:** Derivar ambos lados de la ecuación respecto al tiempo ($t$).
     5. **Sustituir y despejar:** Introducir los valores numéricos *después* de haber derivado y despejar la incógnita.
     """)
+    st.write("---")
+    st.subheader("💡 4 Tips Relámpago para el Examen")
+    
+    # TIP 1
+    st.error("""
+    **1. ¡No congeles el problema antes de tiempo!** **NUNCA** cambies las variables por números (como *'h = 5'*) *antes* de derivar. Si metes los números al principio, la derivada te dará cero y arruinarás el problema. Los datos fijos se usan **solo al puro final**.
+    """)
+    
+    # TIP 2
+    st.warning("""
+    **2. Cuidado con los signos ($+$ o $-$)** El enunciado no te va a dar el signo, debes ponerlo tú:
+    * Si la magnitud **crece, se llena o aumenta**: la derivada es **positiva** ($+$).
+    * Si la magnitud **decrece, se vacía o se achica**: la derivada es **negativa** ($-$ siempre).
+    """)
+    
+    # TIP 3
+    st.success("""
+    **3. Las verdaderas constantes van primero** Si una dimensión **nunca cambia** en todo el problema (como el largo de una escalera apoyada o la altura de un poste), esa **sí** puedes sustituirla desde el inicio para que la derivada sea más fácil.
+    """)
+    
+    # TIP 4
+    st.info("""
+    **4. Las 3 fórmulas salvavidas del TEC** Casi todos los problemas se reducen a:
+    * **Paredes / Escaleras:** Teorema de Pitágoras ($z^2 = x^2 + y^2$).
+    * **Conos / Sombras:** Semejanza de triángulos (escalar proporciones).
+    * **Esferas / Tanques:** Fórmulas de volumen ($V = \frac{4}{3}\pi r^3$ o $V = \pi r^2 h$).
+    """)
 
 # =========================================================================
 # SECCIÓN 2: SIMULADOR E IA (Gráfico Nativo de Python + Tutor Gemini)
 # =========================================================================
 elif seccion == "2. Tutor con IA":
-    st.header("Resolución de Problemas con Mediación Pedagógica")
+    st.header("Resolución de Problemas")
     
     modalidad = st.radio(
         "Elige la modalidad de trabajo:",
-        ["A. Problema Guiado (Tanque Cónico Interactivo)", "B. Resolver mi propio problema de Razón de Cambio"]
+        ["A. Problema Guiado", "B. Resolver mi propio problema de Razón de Cambio"]
     )
     
     st.write("---")
     col1, col2 = st.columns([1, 1])
     
     # CONFIGURACIÓN DEL CASO A: EL CONO CON GRÁFICO NATIVO
-    if modalidad == "A. Problema Guiado (Tanque Cónico Interactivo)":
+    if modalidad == "A. Problema Guiado":
         with col1:
             st.subheader("Visualización y Enunciado")
             st.write("""
@@ -114,13 +141,15 @@ elif seccion == "2. Tutor con IA":
             "(Altura = 10m, Radio = 4m, dV/dt = 2 m^3/min). "
             "REGLA DE ORO ABSOLUTA: Nunca, bajo ninguna circunstancia, le des la respuesta numérica final ni resuelvas las derivadas por él. "
             "Debes usar estrictamente el método socrático: hazle preguntas cortas, evalúa si sus planteamientos son correctos y dale pistas conceptuales muy breves."
+            "REGLA DE VALIDACIÓN FINAL: Si el estudiante te propone un resultado numérico final (por ejemplo, si te dice que da 0.16 o 2/4pi), "
+            "SÍ estás autorizado a confirmarle explícitamente si su respuesta es correcta o incorrecta, celebrando su éxito si acertó o guiándolo a revisar el error si falló."
         )
         mensaje_inicial = "¡Hola! Analicemos el problema del cono invertido juntos junto al simulador visual. ¿Qué datos o variables logras identificar primero en el enunciado?"
 
     # CONFIGURACIÓN DEL CASO B: PROBLEMA LIBRE
     else:
         with col1:
-            st.subheader("📥 Introduce tu propio problema")
+            st.subheader("Introduce tu propio problema")
             st.write("""
             Escribe en el cuadro de abajo el enunciado de cualquier problema de razones de cambio relacionadas que quieras estudiar.
             """)
@@ -138,12 +167,14 @@ elif seccion == "2. Tutor con IA":
             f"El estudiante quiere que lo guíes a resolver el siguiente problema que él mismo propuso: '{problema_usuario}'. "
             "REGLA DE ORO ABSOLUTA: Nunca, bajo ninguna circunstancia, resuelvas el problema por él ni le des el resultado numérico final. "
             "Tu labor es guiarlo paso a paso de forma socrática sin resolver nada."
+            "REGLA DE VALIDACIÓN FINAL: Resuelve mentalmente el problema del usuario de forma interna. Si el estudiante avanza en la conversación "
+            "y te dice un valor numérico final para confirmar su resultado, debes evaluar su respuesta y decirle explícitamente si está en lo correcto o si cometió un error en el cálculo final."
         )
         mensaje_inicial = "¡Hola! He leído el problema que registraste. Comencemos con el primer paso del análisis matemático: ¿cuáles son las variables involucradas y qué tasas de cambio nos da directamente el texto?"
 
     # COLUMNA 2: Chatbot Tutor con API de Gemini
     with col2:
-        st.subheader("🤖 Tu Tutor IA de Cálculo (En Vivo)")
+        st.subheader("🤖 Tu Tutor de Cálculo")
         st.write("Usa este chat para interactuar con la IA. Ella se adaptará a la opción de la izquierda.")
 
         import google.genai as genai
@@ -200,7 +231,7 @@ elif seccion == "2. Tutor con IA":
 # SECCIÓN 3: RETO final
 # =========================================================================
 elif seccion == "3. Reto final":
-    st.header("🎯 Demuestra tu Autonomía Matemática")
+    st.header("🎯 Demuestra tu nivel")
     st.subheader("Problema Avanzado: El auto en la intersección")
     st.write("""
     Un automóvil viaja hacia el norte a $60\\text{ km/h}$ y otro hacia el este a $80\\text{ km/h}$. 
@@ -208,7 +239,7 @@ elif seccion == "3. Reto final":
     exactamente **2 horas** después de que iniciaron su viaje?
     """)
     
-    st.warning("⚠️ **Retiro de apoyo de IA:** En esta sección el chatbot está desactivado. Resuélvelo por tu cuenta.")
+    st.warning("⚠️ **Retiro de apoyo:** En esta sección el chatbot está desactivado. Resuélvelo por tu cuenta.")
     
     st.write("---")
     respuesta_usuario = st.number_input("Ingresa tu respuesta numérica final para la razón de cambio (en km/h):", min_value=0.0, step=1.0)
